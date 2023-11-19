@@ -7,4 +7,8 @@ userRoutes.post('/user', ExpressAdapter.execute(createUserUseCase));
 
 userRoutes.post('/login', ExpressAdapter.execute(loginUserUseCase));
 
+userRoutes.get('/hello', (request, response)=>{
+    return response.status(200).json({"message": "Hello World"})
+})
+
 module.exports = { userRoutes }
