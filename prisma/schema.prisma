@@ -11,18 +11,42 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   password  String
-  email     String   @unique()
-  role      Role     @default(TEACHER)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  email     String     @unique()
+  role      Role       @default(TEACHER)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  Bookings  Bookings[]
 
   @@map("users")
+}
+
+model ClassRoom {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+
+  @@map("classrooms")
+}
+
+model Bookings {
+  id               String   @id @default(uuid())
+  status           STATUS   @default(CONFIRMED)
+  description      String?
+  BookingDateStart DateTime @default(now())
+  BookingDateEnd   DateTime
+  teacher          User     @relation(fields: [teacherId], references: [id])
+  teacherId        String
 }
 
 enum Role {
   TEACHER
   ADMIN
+}
+
+enum STATUS {
+  CONFIRMED
+  CANCELED
 }
