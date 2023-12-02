@@ -1,3 +1,3 @@
 const { userRoutes } = require("./user-routes");
-
-module.exports = { userRoutes }
+const { classroomRoutes } = require("./classroom-routes")
+module.exports = { userRoutes, classroomRoutes }

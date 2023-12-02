@@ -41,5 +41,8 @@ CREATE TABLE "Bookings" (
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "classrooms_name_key" ON "classrooms"("name");
+
 -- AddForeignKey
 ALTER TABLE "Bookings" ADD CONSTRAINT "Bookings_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
