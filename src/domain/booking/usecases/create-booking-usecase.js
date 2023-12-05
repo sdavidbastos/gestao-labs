@@ -7,14 +7,13 @@ class CreateBookingUseCase {
     }
     async execute(httpRequest) {
         try {
-            const { data } = httpRequest.body;
-
+           const { data, user } = httpRequest.body;
+           const {bookingInput, classroom} = data
            const booking = await this.client.booking.create({
             data: {
-                ...data,
-                teacher: {
-                    connect: { id: user.id }
-                }
+                ...bookingInput,
+                teacher: {connect: { id: user.id }},
+                classroom: {connect: {id: classroom.id}}
             }
         });
             return HttpResponse.ok({ ...booking });

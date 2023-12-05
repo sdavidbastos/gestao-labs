@@ -12,10 +12,10 @@ class LoginUserUseCase {
     async execute(httpRequest) {
         try {
             const { data } = httpRequest.body;
-            if (!data.email) {
+            if (!data?.email) {
                 return HttpResponse.badRequest(new MissingParamError('email'))
             }
-            if (!data.password) {
+            if (!data?.password) {
                 return HttpResponse.badRequest(new MissingParamError('password'))
             }
             const user = await this.client.user.findUnique({

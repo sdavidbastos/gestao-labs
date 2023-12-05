@@ -16,7 +16,6 @@ describe('Classroom Route Test Suite', () => {
             token.create(user.id),
             client.user.create({ data: { ...user } }),
         ])
-        client.classroom.c
     })
 
     test('should return classroom', async () => {
