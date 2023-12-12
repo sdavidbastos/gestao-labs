@@ -14,31 +14,28 @@ describe('Booking Route Test Suite', () => {
 
     beforeAll(async () => {
         [authorization, user, classroom] = await Promise.all([
-            token.create(user.id),
+            token.create(userBuild.id),
             client.user.create({ data: { ...userBuild } }),
             client.classroom.create({ data: { ...classroomBuild } })
         ])
-
-        console.log("user =>", user)
-
-        await client.booking.create({
-            data: {
-                ...bookingBuild,
-                teacher: user,
-                classroom
-            }
-        })
-
+        client.classroom.findMany()
     })
 
-    test('should return booking', async () => {
+    test('should create new booking', async () => {
         const response = await request(app)
             .post('/api/booking')
             .set('Authorization', authorization)
-            .send({ data:{ booking, classroom }});
-
-        expect(response.body).toEqual(expect.objectContaining(booking))
+            .send({ data: { booking: {...bookingBuild}, classroomId: classroomBuild.id } });
+            const bookingObject = {
+                "bookingDateEnd": bookingBuild.bookingDateEnd.toISOString(),
+                "bookingDateStart":  bookingBuild.bookingDateStart.toISOString(),
+                "classroomId": classroomBuild.id,
+                "description": bookingBuild.description,
+                "id": bookingBuild.id,
+                "status": "CONFIRMED",
+                "teacherId": userBuild.id,
+               }
+        expect(response.body).toEqual(expect.objectContaining(bookingObject))
         expect(response.statusCode).toBe(200)
-
     });
 })

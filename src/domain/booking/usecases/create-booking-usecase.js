@@ -7,16 +7,16 @@ class CreateBookingUseCase {
     }
     async execute(httpRequest) {
         try {
-           const { data, user } = httpRequest.body;
-           const {bookingInput, classroom} = data
-           const booking = await this.client.booking.create({
-            data: {
-                ...bookingInput,
-                teacher: {connect: { id: user.id }},
-                classroom: {connect: {id: classroom.id}}
-            }
-        });
-            return HttpResponse.ok({ ...booking });
+            const { data, user } = httpRequest.body;
+            const { booking, classroomId } = data
+            const bookingObject = await this.client.booking.create({
+                data: {
+                    ...booking,
+                    classroom: { connect: { id: classroomId } },
+                    teacher: { connect: { id: user.id } },
+                }
+            });
+            return HttpResponse.ok({ ...bookingObject });
         } catch (error) {
             return HttpResponse.serverError()
         }

@@ -10,14 +10,14 @@ class CreateClassroomUseCase {
         try {
             const { data, user } = httpRequest.body;
             if (user.role !== "ADMIN") {
-                return HttpResponse.badRequest(new UnauthorizedError())
+                return HttpResponse.badRequest(new UnauthorizedError());
             }
            const classroom = await this.client.classroom.create({
                 data
             });
             return HttpResponse.ok({ ...classroom });
         } catch (error) {
-            return HttpResponse.serverError()
+            return HttpResponse.serverError();
         }
     }
 }

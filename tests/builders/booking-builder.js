@@ -3,8 +3,9 @@ class BookingBuilder {
     constructor() {
         this.booking = {
             id: faker.string.uuid(),
-            BookingDateStart: faker.date.soon({ days: 5 }),
-            BookingDateEnd: faker.date.soon({ days: 5 }),
+            bookingDateStart: faker.date.soon({ days: 5 }),
+            bookingDateEnd: faker.date.soon({ days: 5 }),
+            description: faker.string.alpha({length:10})
         };
     }
 

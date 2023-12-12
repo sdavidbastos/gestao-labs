@@ -31,10 +31,10 @@ CREATE TABLE "bookings" (
     "id" TEXT NOT NULL,
     "status" "STATUS" NOT NULL DEFAULT 'CONFIRMED',
     "description" TEXT,
-    "BookingDateStart" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "BookingDateEnd" TIMESTAMP(3) NOT NULL,
+    "bookingDateStart" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "bookingDateEnd" TIMESTAMP(3) NOT NULL,
     "teacherId" TEXT NOT NULL,
-    "classrooomId" TEXT NOT NULL,
+    "classroomId" TEXT NOT NULL,
 
     CONSTRAINT "bookings_pkey" PRIMARY KEY ("id")
 );
@@ -49,4 +49,4 @@ CREATE UNIQUE INDEX "classrooms_name_key" ON "classrooms"("name");
 ALTER TABLE "bookings" ADD CONSTRAINT "bookings_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "bookings" ADD CONSTRAINT "bookings_classrooomId_fkey" FOREIGN KEY ("classrooomId") REFERENCES "classrooms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_classroomId_fkey" FOREIGN KEY ("classroomId") REFERENCES "classrooms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

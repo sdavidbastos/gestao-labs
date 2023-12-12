@@ -18,7 +18,7 @@ model User {
   role      Role      @default(TEACHER)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
-  Bookings  Booking[]
+  bookings  Booking[]
 
   @@map("users")
 }
@@ -27,7 +27,7 @@ model Classroom {
   id          String  @id @default(uuid())
   name        String  @unique()
   description String?
-  Bookings  Booking[]
+  bookings  Booking[]
 
   @@map("classrooms")
 }
@@ -36,13 +36,13 @@ model Booking {
   id               String   @id @default(uuid())
   status           STATUS   @default(CONFIRMED)
   description      String?
-  BookingDateStart DateTime @default(now())
-  BookingDateEnd   DateTime
+  bookingDateStart DateTime @default(now())
+  bookingDateEnd   DateTime
 
   teacher      User   @relation(fields: [teacherId], references: [id])
   teacherId    String
-  classrooom   Classroom   @relation(fields: [classrooomId], references: [id])
-  classrooomId String
+  classroom   Classroom   @relation(fields: [classroomId], references: [id])
+  classroomId String
 
   @@map("bookings")
 }

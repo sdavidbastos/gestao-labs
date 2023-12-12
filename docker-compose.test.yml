@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    image: postgres:11
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+  test:
+    build: .
+    command: sh -c "npm run migrate && npm run test"
+    restart: always
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
